@@ -4,7 +4,7 @@ from PIL import Image, ImageDraw, ImageFont
 def append_quote(quote):
     image = Image.open('./test_images/grafi.jpg')
     draw = ImageDraw.Draw(image)
-    meme_font = ImageFont.truetype("Impact.ttf", 52)
+    meme_font = ImageFont.truetype("Impact.ttf", 12)
     (x, y) = (50, 50)
     color = 'rgb(255, 255, 255)'
 
