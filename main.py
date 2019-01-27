@@ -18,7 +18,7 @@ def main():
     quote_of_the_day = quote.get_todays_quote()
     print(quote_of_the_day)
 
-    editor.append_quote(quote_of_the_day)
+    editor.append_quote(quote_of_the_day, the_boi)
 
 
 if __name__ == '__main__':
