@@ -1,23 +1,30 @@
 from PIL import Image, ImageDraw, ImageFont
 from app import data_manager
-import requests
+import urllib
 from io import BytesIO
+from urllib.request import Request, urlopen
 
 
 def append_quote(quote, the_boi):
     url = select_image(the_boi)
-    r = requests.get(url)
 
-    image = Image.open(BytesIO(r.content))
+    req = Request(
+        url,
+        headers={'User-Agent': 'Mozilla/5.0'})
 
-    # image = Image.open('the_boi.png')
+    with urlopen(req) as f:
+        b = BytesIO(f.read())
+        image = Image.open(b)
+
     draw = ImageDraw.Draw(image)
+    # TODO: text border
+    # TODO: the width of the page and line break
     meme_font = ImageFont.truetype("Impact.ttf", 12)
-    (x, y) = (50, 50)
-    color = 'rgb(255, 255, 255)'
+    (x, y) = (1, 1)
+    color = 'rgba(255, 255, 255, 1)'
 
     draw.text((x, y), quote, fill=color, font=meme_font)
-    image.save('finished_product.png')
+    image.save('finished_product.jpeg')
     return True
 
 

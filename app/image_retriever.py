@@ -9,7 +9,7 @@ def get_some_pictures(the_boi):
     search_params['key'] = 'AIzaSyDuoDdWZUbSL8CEcjdePYvhXjEuVzXdEt0'
     search_params['cx'] = '008071172635476624347:9zfhracf2vo'
     search_params['searchType'] = 'image'
-    search_params['fileType'] = 'png'
+    search_params['fileType'] = 'jpeg'
     search_params['filter'] = '1'
     search_params['num'] = '10'
 
