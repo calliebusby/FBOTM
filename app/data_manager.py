@@ -6,6 +6,7 @@ def add_new_images_collection(conn, the_boi, urls):
     for url in urls:
         add_new_image(conn, the_boi, url)
 
+
 def create_images_table(conn):
     sql_create_images_table = """ CREATE TABLE IF NOT EXISTS images (
                                                 id integer PRIMARY KEY,
@@ -74,8 +75,11 @@ def find_daily_image(the_boi):
     rows = cur.fetchall()
     row = rows[0]
 
-    sql = ''' UPDATE images SET used = 1 WHERE id = %s''' % row[0]
-    cur.execute(sql)
+    sql = ''' UPDATE images 
+                SET used = ? 
+                WHERE id = ? '''
+    cur.execute(sql, (1, row[0]))
+    conn.commit()
 
     conn.close()
     return row[2]

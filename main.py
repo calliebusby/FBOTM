@@ -15,6 +15,8 @@ def main():
         image_arr = image_retriever.get_some_pictures(the_boi)
         data_manager.add_new_images_collection(conn, the_boi, image_arr)
 
+    conn.close()
+
     quote_of_the_day = quote.get_todays_quote()
     print(quote_of_the_day)
 
