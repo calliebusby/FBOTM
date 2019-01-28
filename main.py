@@ -6,6 +6,7 @@ from app import quote
 
 def main():
     the_boi = 'Xiumin'
+    nickname = 'Bbygrl'
 
     conn = data_manager.create_connection('FBOTD.db')
     data_manager.create_images_table(conn)
@@ -13,7 +14,7 @@ def main():
 
     if not data_created:
         image_arr = image_retriever.get_some_pictures(the_boi)
-        data_manager.add_new_images_collection(conn, the_boi, image_arr)
+        data_manager.add_new_images_collection(conn, the_boi, nickname, image_arr)
 
     conn.close()
 

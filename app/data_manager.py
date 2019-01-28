@@ -2,15 +2,16 @@ import sqlite3
 from sqlite3 import Error
 
 
-def add_new_images_collection(conn, the_boi, urls):
+def add_new_images_collection(conn, the_boi, nickname, urls):
     for url in urls:
-        add_new_image(conn, the_boi, url)
+        add_new_image(conn, the_boi, nickname, url)
 
 
 def create_images_table(conn):
     sql_create_images_table = """ CREATE TABLE IF NOT EXISTS images (
                                                 id integer PRIMARY KEY,
                                                 name text NOT NULL,
+                                                nickname text NOT NULL,
                                                 url text NOT NULL,
                                                 used integer NOT NULL
                                             ); """
@@ -21,9 +22,9 @@ def create_images_table(conn):
         print("Error! DB connection")
 
 
-def add_new_image(conn, the_boi, url):
+def add_new_image(conn, the_boi, nickname, url):
     with conn:
-        task_1 = (the_boi, url, 0)
+        task_1 = (the_boi, nickname, url, 0)
         create_image(conn, task_1)
 
 
@@ -46,8 +47,8 @@ def create_table(conn, create_table_sql):
 
 
 def create_image(conn, task):
-    sql = ''' INSERT INTO images(name, url, used)
-                 VALUES(?,?,?) '''
+    sql = ''' INSERT INTO images(name, nickname, url, used)
+                 VALUES(?,?,?,?) '''
     cur = conn.cursor()
     cur.execute(sql, task)
     return cur.lastrowid
@@ -80,6 +81,19 @@ def find_daily_image(the_boi):
                 WHERE id = ? '''
     cur.execute(sql, (1, row[0]))
     conn.commit()
+
+    conn.close()
+    return row[3]
+
+
+def retrieve_nickname_from_db(the_boi):
+    conn = create_connection('FBOTD.db')
+    query = 'SELECT * FROM images WHERE name = "%s" LIMIT 1' % the_boi
+    cur = conn.cursor()
+    cur.execute(query)
+
+    rows = cur.fetchall()
+    row = rows[0]
 
     conn.close()
     return row[2]
