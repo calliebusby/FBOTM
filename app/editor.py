@@ -18,6 +18,7 @@ def append_quote(quote, the_boi):
         image = Image.open(b)
 
     # TODO: the width of the page and line break
+    # TODO: center text
     outline_text(image, custom_quote, 1, 1)
 
     image.save('finished_product.jpeg')
