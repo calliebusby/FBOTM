@@ -1,4 +1,3 @@
-import pytest
 import requests
 from app import quote
 import unittest.mock
@@ -16,3 +15,8 @@ def test_parsing_json_object(mock_request):
     mock_request.return_value.json.return_value = {'contents': {'quotes': [{'quote': phrase}]}}
     response = quote.get_todays_quote()
     assert response == phrase
+
+@unittest.mock.patch('requests.get')
+def test_no_code_ok_came_back(mock_request):
+    response = quote.get_todays_quote()
+    assert response == 'No quote was found dude'

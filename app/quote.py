@@ -6,3 +6,5 @@ def get_todays_quote():
     json_data = r.json()
     if r.status_code == requests.codes.ok:
         return json_data['contents']['quotes'][0]['quote']
+
+    return 'No quote was found dude'
